@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2024/12/31 14:39:20 by karai            ###   ########.fr       */
+/*   Updated: 2024/12/31 17:29:21 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_philosopher
 {
 	int				idx;
 	int				num_philo;
+	size_t			start_time;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
@@ -46,11 +47,13 @@ typedef struct s_common
 int					ft_atoi(char *nptr);
 
 void				initialize_main(int argc, char *argv[],
-						t_philosopher *philo_array, t_common *common);
+						t_philosopher **philo_array, t_common *common);
 void				initialize_overall(char *argv[], t_common *common);
 void				initialize_thread(int argc, char *argv[],
-						t_philosopher *philo_array, t_common *common);
+						t_philosopher **philo_array, t_common *common);
 size_t				get_time(void);
+
 void				*loop_philo(void *arg);
+void				print_custom(char *str, t_philosopher philo);
 
 #endif
