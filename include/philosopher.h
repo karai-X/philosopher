@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2025/01/10 22:21:41 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/23 15:02:40 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,10 @@ void				print_custom_time(char *str, t_philosopher philo,
 void				*monitor(void *arg);
 
 void				*waiter(void *arg);
+
+// error.c
+bool				is_within_int(char *nptr);
+bool				is_numeric(char *str);
+bool				error_main(int argc, char *argv[]);
 
 #endif

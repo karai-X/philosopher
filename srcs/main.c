@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:21:21 by karai             #+#    #+#             */
-/*   Updated: 2025/01/10 22:40:42 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/23 15:06:22 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "../include/philosopher.h"
 
 int	main(int argc, char *argv[])
 {
@@ -20,10 +20,8 @@ int	main(int argc, char *argv[])
 	pthread_t		monitor_thread;
 
 	// pthread_t		waiter_thread;
-	if (argc != 5 && argc != 6)
-	{
+	if (error_main(argc, argv))
 		return (1);
-	}
 	initialize_main(argc, argv, &philo_array, common);
 	pthread_create(common->waiter_thread, NULL, &waiter, (void *)common);
 	pthread_create(&monitor_thread, NULL, &monitor, (void *)common);

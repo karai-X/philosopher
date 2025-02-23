@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:09:14 by karai             #+#    #+#             */
-/*   Updated: 2024/12/23 23:58:28 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/23 14:50:31 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../include/philosopher.h"
 
 void	free2dim(char **str_array)
 {

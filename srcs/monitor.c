@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 12:18:55 by karai             #+#    #+#             */
-/*   Updated: 2025/01/10 22:22:23 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/23 14:50:48 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "../include/philosopher.h"
 
 void	*monitor(void *arg)
 {

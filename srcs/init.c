@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:16:27 by karai             #+#    #+#             */
-/*   Updated: 2025/01/10 20:58:44 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/23 14:50:36 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "../include/philosopher.h"
 
 void	initialize_thread(int argc, char *argv[], t_philosopher **philo_array,
 		t_common *common)

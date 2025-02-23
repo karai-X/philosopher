@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   waiter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:28:13 by karai             #+#    #+#             */
-/*   Updated: 2025/01/10 22:39:58 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/23 14:50:58 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
+#include "../include/philosopher.h"
 
 void	*waiter(void *arg)
 {

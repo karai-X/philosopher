@@ -8,6 +8,7 @@ SRC = main.c\
 		loop.c\
 		monitor.c\
 		waiter.c\
+		error.c\
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
@@ -22,6 +23,7 @@ $(NAME): $(OBJS)
 		@$(CC) $(OBJS) -o $(NAME) -I $(INC_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+		@mkdir -p objs
 		@$(CC) -c $< -o $@ -I $(INC_DIR)
 
 clean:
