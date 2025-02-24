@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:16:27 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 12:57:27 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 19:45:52 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	initialize_thread(int argc, char *argv[], t_philosopher **philo_array,
 		(*philo_array)[i].someone_dead = common->someone_dead;
 		(*philo_array)[i].is_eat_finish = common->is_eat_finish;
 		(*philo_array)[i].mutex_eat = common->mutex_eat;
-		(*philo_array)[i].mutex_died = common->mutex_died;
+		// (*philo_array)[i].mutex_died = common->mutex_died;
 		(*philo_array)[i].mutex_write = common->mutex_write;
+		(*philo_array)[i].thread[0] = (pthread_t)NULL;
 		i += 1;
 	}
 }
@@ -111,11 +112,13 @@ void	initialize_mutex(char *argv[], t_common *common)
 	{
 		pthread_mutex_init(&(common->mutex_fork[i]), NULL);
 		pthread_mutex_init(&(common->mutex_die[i]), NULL);
+		pthread_mutex_init(&(common->mutex_which_eat[i]), NULL);
+		pthread_mutex_init(&(common->mutex_last_eat[i]), NULL);
 		i += 1;
 	}
 	pthread_mutex_init(&(common->mutex_write[0]), NULL);
 	pthread_mutex_init(&(common->mutex_eat[0]), NULL);
-	pthread_mutex_init(&(common->mutex_died[0]), NULL);
+	// pthread_mutex_init(&(common->mutex_died[0]), NULL);
 }
 
 void	initialize_main(int argc, char *argv[], t_philosopher **philo_array,

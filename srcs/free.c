@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:09:14 by karai             #+#    #+#             */
-/*   Updated: 2025/02/23 14:50:31 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 19:57:35 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,14 @@ void	free2dim(char **str_array)
 	free(str_array);
 }
 
-void	perror_exit(char *str, char **str_array1, char **str_array2,
-		int exit_status)
+void free_common(t_common *common)
 {
-	perror(str);
-	free2dim(str_array1);
-	free2dim(str_array2);
-	exit(exit_status);
-}
-
-void	free_exit(char **str_array1, char **str_array2, int exit_status)
-{
-	free2dim(str_array1);
-	free2dim(str_array2);
-	exit(exit_status);
+	free(common->bool_fork);
+	free(common->last_eat);
+	free(common->which_eat);
+	free(common->mutex_fork);
+	free(common->mutex_die);
+	free(common->mutex_which_eat);
+	free(common->mutex_last_eat);
+	free(common->philo_array);
 }

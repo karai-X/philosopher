@@ -9,6 +9,7 @@ SRC = main.c\
 		monitor.c\
 		waiter.c\
 		error.c\
+		free.c\
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 

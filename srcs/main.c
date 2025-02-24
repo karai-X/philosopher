@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:21:21 by karai             #+#    #+#             */
-/*   Updated: 2025/02/23 15:06:22 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 19:54:23 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (i < philo_array[0].num_philo)
 	{
-		pthread_create(&(philo_array[i].thread), NULL, &loop_philo,
+		pthread_create((&philo_array[i])->thread, NULL, &loop_philo,
 			(void *)(&(philo_array[i])));
 		i += 2;
 	}
@@ -37,11 +37,12 @@ int	main(int argc, char *argv[])
 	i = 1;
 	while (i < philo_array[0].num_philo)
 	{
-		pthread_create(&(philo_array[i].thread), NULL, &loop_philo,
+		pthread_create((&philo_array[i])->thread, NULL, &loop_philo,
 			(void *)(&(philo_array[i])));
 		i += 2;
 	}
 	pthread_join(monitor_thread, NULL);
+	free_common(common);
 	// pthread_detach(waiter_thread);
 	// pthread_join(waiter_thread, NULL);
 }

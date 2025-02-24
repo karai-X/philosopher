@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 12:57:21 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 19:53:58 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ typedef struct s_philosopher
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_times_each_philo_must_eat;
-	pthread_t		thread;
+	pthread_t		thread[1];
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*mutex_write;
 	pthread_mutex_t	*mutex_die;
-	pthread_mutex_t	*mutex_died;
+	// pthread_mutex_t	*mutex_died;
 	pthread_mutex_t	*mutex_eat;
 	pthread_mutex_t	*mutex_which_eat;
 	pthread_mutex_t	*mutex_last_eat;
@@ -59,7 +59,7 @@ typedef struct s_common
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	mutex_write[1];
 	pthread_mutex_t	*mutex_die;
-	pthread_mutex_t	mutex_died[1];
+	// pthread_mutex_t	mutex_died[1];
 	pthread_mutex_t	mutex_eat[1];
 	int				*which_eat;
 	pthread_mutex_t	*mutex_which_eat;
@@ -100,5 +100,8 @@ void				*waiter(void *arg);
 bool				is_within_int(char *nptr);
 bool				is_numeric(char *str);
 bool				error_main(int argc, char *argv[]);
+
+// free.c
+void				free_common(t_common *common);
 
 #endif
