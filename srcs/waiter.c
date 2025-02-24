@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   waiter.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:28:13 by karai             #+#    #+#             */
-/*   Updated: 2025/02/23 14:50:58 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 13:06:10 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,29 @@ void	*waiter(void *arg)
 		i = 0;
 		while (i < common->num_philo)
 		{
+			pthread_mutex_lock(&(common->mutex_last_eat[i]));
+			pthread_mutex_lock(&(common->mutex_last_eat[(i + 1)
+					% common->num_philo]));
 			if (common->last_eat[i] <= common->last_eat[(i + 1)
 				% common->num_philo])
 			{
+				pthread_mutex_unlock(&(common->mutex_last_eat[(i + 1)
+						% common->num_philo]));
+				pthread_mutex_unlock(&(common->mutex_last_eat[i]));
+				pthread_mutex_lock(&(common->mutex_which_eat[i]));
 				common->which_eat[i] = RIGHT_EAT;
+				pthread_mutex_unlock(&(common->mutex_which_eat[i]));
 			}
 			else
 			{
+				pthread_mutex_unlock(&(common->mutex_last_eat[(i + 1)
+						% common->num_philo]));
+				pthread_mutex_unlock(&(common->mutex_last_eat[i]));
+				pthread_mutex_lock(&(common->mutex_which_eat[i]));
 				common->which_eat[i] = LEFT_EAT;
+				pthread_mutex_unlock(&(common->mutex_which_eat[i]));
 			}
 			i += 2;
 		}
-		// if (*(common->someone_dead) || *(common->is_eat_finish))
-		// 	return (arg);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:49:31 by karai             #+#    #+#             */
-/*   Updated: 2025/02/23 14:50:39 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 12:59:30 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,47 +19,49 @@ void	eating(t_philosopher *philo)
 		pthread_mutex_lock(philo->right_fork);
 		while (1)
 		{
+			pthread_mutex_lock(philo->mutex_which_eat);
 			if (*(philo->which_eat) == RIGHT_EAT)
 			{
+				pthread_mutex_unlock(philo->mutex_which_eat);
 				pthread_mutex_lock(philo->left_fork);
+				// {
+				print_custom("has taken a fork", philo);
+				print_custom("has taken a fork", philo);
 				pthread_mutex_lock(philo->mutex_die);
-				if (!*(philo->someone_dead))
+				*(philo->last_eat) = get_time();
+				if (philo->num_times_each_philo_must_eat != -1)
 				{
-					print_custom("has taken a fork", philo);
-					print_custom("has taken a fork", philo);
-					*(philo->last_eat) = get_time();
-					if (philo->num_times_each_philo_must_eat != -1)
+					philo->num_eat += 1;
+					if (philo->num_eat >= philo->num_times_each_philo_must_eat)
 					{
-						philo->num_eat += 1;
-						if (philo->num_eat >= philo->num_times_each_philo_must_eat)
+						pthread_mutex_lock(philo->mutex_eat);
+						*(philo->num_full_philo) += 1;
+						if (*philo->num_full_philo == philo->num_philo)
 						{
-							pthread_mutex_lock(philo->mutex_eat);
-							*(philo->num_full_philo) += 1;
-							if (*philo->num_full_philo == philo->num_philo)
-							{
-								pthread_mutex_lock(philo->mutex_write);
-								*(philo->is_eat_finish) = true;
-								printf("%lu %d %s\n", get_time() - philo->start_time, philo->idx, "is eating");
-								pthread_mutex_unlock(philo->mutex_write);
-							}
-							pthread_mutex_unlock(philo->mutex_eat);
-							print_custom("is eating", philo);
+							pthread_mutex_lock(philo->mutex_write);
+							*(philo->is_eat_finish) = true;
+							printf("%lu %d %s\n", get_time()
+								- philo->start_time, philo->idx,
+								"is eating");
+							pthread_mutex_unlock(philo->mutex_write);
 						}
-						else
-						{
-							print_custom("is eating", philo);
-						}
+						pthread_mutex_unlock(philo->mutex_eat);
+						print_custom("is eating", philo);
 					}
 					else
 					{
 						print_custom("is eating", philo);
 					}
-					usleep(philo->time_to_eat * 1000);
 				}
+				else
+				print_custom("is eating", philo);
 				pthread_mutex_unlock(philo->mutex_die);
+				usleep(philo->time_to_eat * 1000);
 				pthread_mutex_unlock(philo->left_fork);
 				break ;
 			}
+			else
+				pthread_mutex_unlock(philo->mutex_which_eat);
 		}
 		pthread_mutex_unlock(philo->right_fork);
 	}
@@ -68,47 +70,52 @@ void	eating(t_philosopher *philo)
 		pthread_mutex_lock(philo->left_fork);
 		while (1)
 		{
+			pthread_mutex_lock(philo->mutex_which_eat);
 			if (*(philo->which_eat) == LEFT_EAT)
 			{
+				pthread_mutex_unlock(philo->mutex_which_eat);
 				pthread_mutex_lock(philo->right_fork);
+				// pthread_mutex_lock(philo->mutex_die);
+				// if (!*(philo->someone_dead))
+				// {
+				print_custom("has taken a fork", philo);
+				print_custom("has taken a fork", philo);
 				pthread_mutex_lock(philo->mutex_die);
-				if (!*(philo->someone_dead))
+				pthread_mutex_lock(philo->mutex_last_eat);
+				*(philo->last_eat) = get_time();
+				pthread_mutex_unlock(philo->mutex_last_eat);
+				if (philo->num_times_each_philo_must_eat != -1)
 				{
-					print_custom("has taken a fork", philo);
-					print_custom("has taken a fork", philo);
-					*(philo->last_eat) = get_time();
-					if (philo->num_times_each_philo_must_eat != -1)
+					philo->num_eat += 1;
+					if (philo->num_eat >= philo->num_times_each_philo_must_eat)
 					{
-						philo->num_eat += 1;
-						if (philo->num_eat >= philo->num_times_each_philo_must_eat)
+						pthread_mutex_lock(philo->mutex_eat);
+						*(philo->num_full_philo) += 1;
+						if (*philo->num_full_philo == philo->num_philo)
 						{
-							pthread_mutex_lock(philo->mutex_eat);
-							*(philo->num_full_philo) += 1;
-							if (*philo->num_full_philo == philo->num_philo)
-							{
-								pthread_mutex_lock(philo->mutex_write);
-								*(philo->is_eat_finish) = true;
-								printf("%lu %d %s\n", get_time() - philo->start_time, philo->idx, "is eating");
-								pthread_mutex_unlock(philo->mutex_write);
-							}
-							pthread_mutex_unlock(philo->mutex_eat);
-							print_custom("is eating", philo);
+							pthread_mutex_lock(philo->mutex_write);
+							*(philo->is_eat_finish) = true;
+							printf("%lu %d %s\n", get_time()
+								- philo->start_time, philo->idx, "is eating");
+							pthread_mutex_unlock(philo->mutex_write);
 						}
-						else
-						{
-							print_custom("is eating", philo);
-						}
+						pthread_mutex_unlock(philo->mutex_eat);
+						print_custom("is eating", philo);
 					}
 					else
 					{
 						print_custom("is eating", philo);
 					}
-					usleep(philo->time_to_eat * 1000);
 				}
+				else
+					print_custom("is eating", philo);
 				pthread_mutex_unlock(philo->mutex_die);
+				usleep(philo->time_to_eat * 1000);
 				pthread_mutex_unlock(philo->right_fork);
 				break ;
 			}
+			else
+				pthread_mutex_unlock(philo->mutex_which_eat);
 		}
 		pthread_mutex_unlock(philo->left_fork);
 	}

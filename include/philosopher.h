@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2025/02/23 15:02:40 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 12:57:21 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_philosopher
 	pthread_mutex_t	*mutex_die;
 	pthread_mutex_t	*mutex_died;
 	pthread_mutex_t	*mutex_eat;
+	pthread_mutex_t	*mutex_which_eat;
+	pthread_mutex_t	*mutex_last_eat;
 	bool			*right_fork_bool;
 	bool			*left_fork_bool;
 	int				num_eat;
@@ -60,8 +62,10 @@ typedef struct s_common
 	pthread_mutex_t	mutex_died[1];
 	pthread_mutex_t	mutex_eat[1];
 	int				*which_eat;
+	pthread_mutex_t	*mutex_which_eat;
 	bool			*bool_fork;
 	size_t			*last_eat;
+	pthread_mutex_t	*mutex_last_eat;
 	int				num_philo;
 	int				time_to_die;
 	size_t			start_time;

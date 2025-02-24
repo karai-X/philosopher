@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
+/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:16:27 by karai             #+#    #+#             */
-/*   Updated: 2025/02/23 14:50:36 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 12:57:27 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,17 @@ void	initialize_thread(int argc, char *argv[], t_philosopher **philo_array,
 		(*philo_array)[i].left_fork_bool = &(common->bool_fork[i - 1]);
 		common->which_eat[i] = 0;
 		if (i % 2 == 0)
+		{
 			(*philo_array)[i].which_eat = &(common->which_eat[i]);
+			(*philo_array)[i].mutex_which_eat = &(common->mutex_which_eat[i]);
+		}
 		else
+		{
 			(*philo_array)[i].which_eat = &(common->which_eat[i - 1]);
+			(*philo_array)[i].mutex_which_eat = &(common->mutex_which_eat[i
+					- 1]);
+		}
+		(*philo_array)[i].mutex_last_eat = &(common->mutex_last_eat[i]);
 		(*philo_array)[i].mutex_die = &(common->mutex_die[i]);
 		(*philo_array)[i].num_full_philo = common->num_full_philo;
 		(*philo_array)[i].num_eat = 0;
@@ -76,6 +84,10 @@ void	initialize_overall(char *argv[], t_common *common,
 	common->time_to_die = ft_atoi(argv[2]);
 	*philo_array = (t_philosopher *)malloc(sizeof(t_philosopher) * num_philo);
 	common->which_eat = (int *)malloc(sizeof(int) * num_philo);
+	common->mutex_which_eat = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* num_philo);
+	common->mutex_last_eat = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* num_philo);
 	common->philo_array = *philo_array;
 	*(common->num_full_philo) = 0;
 	*(common->someone_dead) = false;
