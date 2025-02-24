@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 12:18:55 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 21:22:30 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 22:36:44 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,7 @@ void	*monitor(void *arg)
 						+ 1);
 				}
 				pthread_mutex_unlock(&(common->mutex_write[0]));
-				// while (j < common->num_philo)
-				// {
-				// 	pthread_detach(*(common->philo_array[j].thread));
-				// 	j += 1;
-				// }
 				pthread_mutex_unlock(&(common->mutex_die[i]));
-				pthread_detach(*(common->waiter_thread));
 				return (arg);
 			}
 			pthread_mutex_unlock(&(common->mutex_die[i]));
@@ -53,13 +47,7 @@ void	*monitor(void *arg)
 		pthread_mutex_lock(common->mutex_write);
 		if (*(common->is_eat_finish))
 		{
-			// while (j < common->num_philo)
-			// {
-			// 	pthread_detach(*(common->philo_array[j].thread));
-			// 	j += 1;
-			// }
 			pthread_mutex_unlock(common->mutex_write);
-			pthread_detach(*(common->waiter_thread));
 			return (arg);
 		}
 		pthread_mutex_unlock(common->mutex_write);

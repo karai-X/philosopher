@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:28:13 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 13:06:10 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 22:08:14 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ void	*waiter(void *arg)
 						% common->num_philo]));
 				pthread_mutex_unlock(&(common->mutex_last_eat[i]));
 				pthread_mutex_lock(&(common->mutex_which_eat[i]));
+				if (common->which_eat[i] == FINISH)
+				{
+					pthread_mutex_unlock(&(common->mutex_which_eat[i]));
+					return (NULL);
+				}
 				common->which_eat[i] = RIGHT_EAT;
 				pthread_mutex_unlock(&(common->mutex_which_eat[i]));
 			}
@@ -44,6 +49,11 @@ void	*waiter(void *arg)
 						% common->num_philo]));
 				pthread_mutex_unlock(&(common->mutex_last_eat[i]));
 				pthread_mutex_lock(&(common->mutex_which_eat[i]));
+				if (common->which_eat[i] == FINISH)
+				{
+					pthread_mutex_unlock(&(common->mutex_which_eat[i]));
+					return (NULL);
+				}
 				common->which_eat[i] = LEFT_EAT;
 				pthread_mutex_unlock(&(common->mutex_which_eat[i]));
 			}

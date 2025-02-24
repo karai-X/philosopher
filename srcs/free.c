@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:09:14 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 21:19:32 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 22:47:32 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	destroy(t_common *common)
 void	join_all(t_philosopher *philo_array, pthread_t monitor_thread,
 		pthread_t *waiter_thread, int num_philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	pthread_join(monitor_thread, NULL);
-	while ( i < num_philo)
+	pthread_join(*waiter_thread, NULL);
+	while (i < num_philo)
 	{
 		pthread_join(*(philo_array[i].thread), NULL);
 		i += 1;
 	}
-
 }

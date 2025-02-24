@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 21:17:13 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 21:49:55 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # define LEFT_EAT 1
 # define RIGHT_EAT 2
+# define FINISH 3
 
 typedef struct s_philosopher
 {

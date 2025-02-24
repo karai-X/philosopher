@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 12:16:27 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 19:45:52 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 21:57:55 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	initialize_overall(char *argv[], t_common *common,
 	while (i < num_philo)
 	{
 		common->bool_fork[i] = false;
+		common->which_eat[i] = RIGHT_EAT;
 		i += 1;
 	}
 }

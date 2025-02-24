@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:49:31 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 21:18:07 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 22:45:48 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	eating(t_philosopher *philo)
 		while (1)
 		{
 			pthread_mutex_lock(philo->mutex_which_eat);
+			if (*(philo->which_eat) == FINISH)
+			{
+				pthread_mutex_unlock(philo->mutex_which_eat);
+				pthread_mutex_unlock(philo->right_fork);
+				break;
+			}
 			if (*(philo->which_eat) == RIGHT_EAT)
 			{
 				pthread_mutex_unlock(philo->mutex_which_eat);
@@ -70,6 +76,12 @@ void	eating(t_philosopher *philo)
 		while (1)
 		{
 			pthread_mutex_lock(philo->mutex_which_eat);
+			if (*(philo->which_eat) == FINISH)
+			{
+				pthread_mutex_unlock(philo->mutex_which_eat);
+				pthread_mutex_unlock(philo->left_fork);
+				break;
+			}
 			if (*(philo->which_eat) == LEFT_EAT)
 			{
 				pthread_mutex_unlock(philo->mutex_which_eat);
@@ -141,9 +153,19 @@ void	*loop_philo(void *arg)
 	{
 		eating(philo);
 		if (sleeping(philo) == false)
+		{
+			pthread_mutex_lock(philo->mutex_which_eat);
+			*(philo->which_eat) = FINISH;
+			pthread_mutex_unlock(philo->mutex_which_eat);
 			break ;
+		}
 		if (thinking(philo) == false)
+		{
+			pthread_mutex_lock(philo->mutex_which_eat);
+			*(philo->which_eat) = FINISH;
+			pthread_mutex_unlock(philo->mutex_which_eat);
 			break ;
+		}
 	}
 }
 
