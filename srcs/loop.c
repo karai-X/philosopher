@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 13:49:31 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 12:59:30 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 21:18:07 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	eating(t_philosopher *philo)
 							pthread_mutex_lock(philo->mutex_write);
 							*(philo->is_eat_finish) = true;
 							printf("%lu %d %s\n", get_time()
-								- philo->start_time, philo->idx,
-								"is eating");
+								- philo->start_time, philo->idx, "is eating");
 							pthread_mutex_unlock(philo->mutex_write);
 						}
 						pthread_mutex_unlock(philo->mutex_eat);
@@ -54,7 +53,7 @@ void	eating(t_philosopher *philo)
 					}
 				}
 				else
-				print_custom("is eating", philo);
+					print_custom("is eating", philo);
 				pthread_mutex_unlock(philo->mutex_die);
 				usleep(philo->time_to_eat * 1000);
 				pthread_mutex_unlock(philo->left_fork);
@@ -75,9 +74,6 @@ void	eating(t_philosopher *philo)
 			{
 				pthread_mutex_unlock(philo->mutex_which_eat);
 				pthread_mutex_lock(philo->right_fork);
-				// pthread_mutex_lock(philo->mutex_die);
-				// if (!*(philo->someone_dead))
-				// {
 				print_custom("has taken a fork", philo);
 				print_custom("has taken a fork", philo);
 				pthread_mutex_lock(philo->mutex_die);
@@ -121,15 +117,19 @@ void	eating(t_philosopher *philo)
 	}
 }
 
-void	sleeping(t_philosopher *philo)
+bool	sleeping(t_philosopher *philo)
 {
-	print_custom("is sleeping", philo);
+	if (print_custom("is sleeping", philo) == false)
+		return (false);
 	usleep(philo->time_to_sleep * 1000);
+	return (true);
 }
 
-void	thinking(t_philosopher *philo)
+bool	thinking(t_philosopher *philo)
 {
-	print_custom("is thinking", philo);
+	if (print_custom("is thinking", philo) == false)
+		return (false);
+	return (true);
 }
 
 void	*loop_philo(void *arg)
@@ -140,19 +140,27 @@ void	*loop_philo(void *arg)
 	while (1)
 	{
 		eating(philo);
-		sleeping(philo);
-		thinking(philo);
+		if (sleeping(philo) == false)
+			break ;
+		if (thinking(philo) == false)
+			break ;
 	}
 }
 
-void	print_custom(char *str, t_philosopher *philo)
+bool	print_custom(char *str, t_philosopher *philo)
 {
 	pthread_mutex_lock(philo->mutex_write);
 	if (!*(philo->someone_dead) && !*(philo->is_eat_finish))
 	{
 		printf("%lu %d %s\n", get_time() - philo->start_time, philo->idx, str);
 	}
+	else
+	{
+		pthread_mutex_unlock(philo->mutex_write);
+		return (false);
+	}
 	pthread_mutex_unlock(philo->mutex_write);
+	return (true);
 }
 
 // void	print_custom_time(char *str, t_philosopher philo, size_t current_time)

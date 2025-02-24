@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:21:21 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 19:54:23 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 21:20:32 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ int	main(int argc, char *argv[])
 			(void *)(&(philo_array[i])));
 		i += 2;
 	}
-	pthread_join(monitor_thread, NULL);
+	// pthread_join(monitor_thread, NULL);
+	join_all(philo_array, monitor_thread, common->waiter_thread,
+		philo_array[0].num_philo);
+	destroy(common);
 	free_common(common);
-	// pthread_detach(waiter_thread);
-	// pthread_join(waiter_thread, NULL);
+	// usleep(10000);
 }

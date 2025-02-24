@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 19:53:58 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 21:17:13 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ void				initialize_thread(int argc, char *argv[],
 size_t				get_time(void);
 
 void				*loop_philo(void *arg);
-void				print_custom(char *str, t_philosopher *philo);
+bool				sleeping(t_philosopher *philo);
+bool				thinking(t_philosopher *philo);
+bool				print_custom(char *str, t_philosopher *philo);
 void				print_custom_time(char *str, t_philosopher philo,
 						size_t current_time);
 
@@ -103,5 +105,9 @@ bool				error_main(int argc, char *argv[]);
 
 // free.c
 void				free_common(t_common *common);
+void				destroy(t_common *common);
+void				join_all(t_philosopher *philo_array,
+						pthread_t monitor_thread, pthread_t *waiter_thread,
+						int num_philo);
 
 #endif
