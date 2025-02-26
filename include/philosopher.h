@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 21:49:55 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/27 00:57:02 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,9 @@ typedef struct s_philosopher
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*mutex_write;
 	pthread_mutex_t	*mutex_die;
-	// pthread_mutex_t	*mutex_died;
 	pthread_mutex_t	*mutex_eat;
 	pthread_mutex_t	*mutex_which_eat;
 	pthread_mutex_t	*mutex_last_eat;
-	bool			*right_fork_bool;
-	bool			*left_fork_bool;
 	int				num_eat;
 	int				*num_full_philo;
 	bool			*someone_dead;
@@ -60,15 +57,13 @@ typedef struct s_common
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	mutex_write[1];
 	pthread_mutex_t	*mutex_die;
-	// pthread_mutex_t	mutex_died[1];
 	pthread_mutex_t	mutex_eat[1];
 	int				*which_eat;
 	pthread_mutex_t	*mutex_which_eat;
-	bool			*bool_fork;
 	size_t			*last_eat;
 	pthread_mutex_t	*mutex_last_eat;
 	int				num_philo;
-	int				time_to_die;
+	size_t			time_to_die;
 	size_t			start_time;
 	t_philosopher	*philo_array;
 	int				num_full_philo[1];
@@ -76,14 +71,24 @@ typedef struct s_common
 	bool			is_eat_finish[1];
 }					t_common;
 
+// main.c
+void				thread_create_philo(t_philosopher *philo_array);
+
 int					ft_atoi(char *nptr);
 
+// init.c
 void				initialize_main(int argc, char *argv[],
 						t_philosopher **philo_array, t_common *common);
 void				initialize_overall(char *argv[], t_common *common,
 						t_philosopher **philo_aray);
 void				initialize_mutex(char *argv[], t_common *common);
+
+// init_thread.c
 void				initialize_thread(int argc, char *argv[],
+						t_philosopher **philo_array, t_common *common);
+void				initialize_thread_part1(t_philosopher **philo_array,
+						t_common *common, int i, int num_philo);
+void				initialize_start_time(char *argv[],
 						t_philosopher **philo_array, t_common *common);
 
 size_t				get_time(void);
@@ -94,8 +99,19 @@ bool				thinking(t_philosopher *philo);
 bool				print_custom(char *str, t_philosopher *philo);
 void				print_custom_time(char *str, t_philosopher philo,
 						size_t current_time);
+void				eating(t_philosopher *philo);
 
+// eating.c
+bool				is_finish_in_eating(t_philosopher *philo,
+						pthread_mutex_t *rl_fork);
+void				taken_fork(t_philosopher *philo, pthread_mutex_t *lr_fork);
+void				eating_part(t_philosopher *philo);
+bool				eating_mainpart(t_philosopher *philo, int rl_which_eat,
+						pthread_mutex_t *lr_fork);
+
+// monitor.c
 void				*monitor(void *arg);
+bool				monitor_died(t_common *common, int i);
 
 void				*waiter(void *arg);
 

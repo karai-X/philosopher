@@ -5,11 +5,13 @@ SRC_DIR = ./srcs
 SRC = main.c\
 		utils.c\
 		init.c\
+		init_start.c\
 		loop.c\
 		monitor.c\
 		waiter.c\
 		error.c\
 		free.c\
+		eating.c\
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
@@ -21,11 +23,11 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(OBJ))
 all: $(NAME)
 
 $(NAME): $(OBJS)
-		@$(CC) $(OBJS) -o $(NAME) -I $(INC_DIR)
+		@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I $(INC_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 		@mkdir -p objs
-		@$(CC) -c $< -o $@ -I $(INC_DIR)
+		@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
 
 clean:
 		@rm -f $(OBJS)

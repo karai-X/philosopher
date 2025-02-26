@@ -6,30 +6,14 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 12:09:14 by karai             #+#    #+#             */
-/*   Updated: 2025/02/24 22:47:32 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/24 23:01:34 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosopher.h"
 
-void	free2dim(char **str_array)
-{
-	size_t	i;
-
-	if (str_array == NULL)
-		return ;
-	i = 0;
-	while (str_array[i])
-	{
-		free(str_array[i]);
-		i += 1;
-	}
-	free(str_array);
-}
-
 void	free_common(t_common *common)
 {
-	free(common->bool_fork);
 	free(common->last_eat);
 	free(common->which_eat);
 	free(common->mutex_fork);
@@ -41,7 +25,7 @@ void	free_common(t_common *common)
 
 void	destroy(t_common *common)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < common->num_philo)

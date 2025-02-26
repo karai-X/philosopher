@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/24 22:51:31 by karai             #+#    #+#             */
+/*   Updated: 2025/02/24 22:59:01 by karai            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/philosopher.h"
 
 bool	is_within_int(char *nptr)
@@ -44,7 +56,7 @@ bool	is_numeric(char *str)
 
 bool	error_main(int argc, char *argv[])
 {
-	size_t	i;
+	int	i;
 
 	if (argc != 5 && argc != 6)
 	{
