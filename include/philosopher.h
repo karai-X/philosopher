@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2025/02/27 00:57:02 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/27 22:54:05 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ void				thread_create_philo(t_philosopher *philo_array);
 int					ft_atoi(char *nptr);
 
 // init.c
-void				initialize_main(int argc, char *argv[],
+bool				initialize_main(int argc, char *argv[],
 						t_philosopher **philo_array, t_common *common);
-void				initialize_overall(char *argv[], t_common *common,
+bool				initialize_overall(char *argv[], t_common *common,
 						t_philosopher **philo_aray);
 void				initialize_mutex(char *argv[], t_common *common);
+bool				initialize_malloc(t_common *common, int num_philo,
+						t_philosopher **philo_array);
 
 // init_thread.c
 void				initialize_thread(int argc, char *argv[],

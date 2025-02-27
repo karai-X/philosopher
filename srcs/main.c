@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/30 14:21:21 by karai             #+#    #+#             */
-/*   Updated: 2025/02/25 22:51:18 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/27 22:54:20 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	main(int argc, char *argv[])
 
 	if (error_main(argc, argv))
 		return (1);
-	initialize_main(argc, argv, &philo_array, common);
+	if (initialize_main(argc, argv, &philo_array, common))
+		return (1);
 	pthread_create(common->waiter_thread, NULL, &waiter, (void *)common);
 	pthread_create(&monitor_thread, NULL, &monitor, (void *)common);
 	usleep(1000);

@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 00:49:12 by karai             #+#    #+#             */
-/*   Updated: 2025/02/27 00:58:20 by karai            ###   ########.fr       */
+/*   Updated: 2025/02/27 23:17:19 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ bool	is_finish_in_eating(t_philosopher *philo, pthread_mutex_t *rl_fork)
 
 void	taken_fork(t_philosopher *philo, pthread_mutex_t *lr_fork)
 {
-	pthread_mutex_unlock(philo->mutex_which_eat);
 	pthread_mutex_lock(lr_fork);
+	pthread_mutex_unlock(philo->mutex_which_eat);
 	print_custom("has taken a fork", philo);
 	print_custom("has taken a fork", philo);
 	pthread_mutex_lock(philo->mutex_die);
