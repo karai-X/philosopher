@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 00:49:12 by karai             #+#    #+#             */
-/*   Updated: 2025/03/01 14:29:25 by karai            ###   ########.fr       */
+/*   Updated: 2025/03/01 19:47:54 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ bool	is_finish_in_eating(t_philosopher *philo)
 	pthread_mutex_lock(philo->mutex_which_eat);
 	if (*(philo->which_eat) == FINISH)
 	{
+		if (philo->num_philo == 1)
+		{
+			pthread_mutex_lock(philo->mutex_write);
+			printf("%lu %d %s\n", get_time() - philo->start_time, philo->idx,
+				"has taken a fork");
+			pthread_mutex_unlock(philo->mutex_write);
+		}
 		pthread_mutex_unlock(philo->mutex_which_eat);
 		return (true);
 	}
