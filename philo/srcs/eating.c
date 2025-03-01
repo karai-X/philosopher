@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 00:49:12 by karai             #+#    #+#             */
-/*   Updated: 2025/03/01 13:04:46 by karai            ###   ########.fr       */
+/*   Updated: 2025/03/01 14:29:25 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,8 @@ void	eating(t_philosopher *philo)
 		print_custom("has taken a fork", philo);
 		while (1)
 		{
-			if (is_finish_in_eating(philo))
-				break ;
-			if (eating_mainpart(philo, RIGHT_EAT, philo->left_fork))
+			if (is_finish_in_eating(philo) || eating_mainpart(philo, RIGHT_EAT,
+					philo->left_fork))
 				break ;
 		}
 		pthread_mutex_unlock(philo->right_fork);
@@ -100,9 +99,8 @@ void	eating(t_philosopher *philo)
 		print_custom("has taken a fork", philo);
 		while (1)
 		{
-			if (is_finish_in_eating(philo))
-				break ;
-			if (eating_mainpart(philo, LEFT_EAT, philo->right_fork))
+			if (is_finish_in_eating(philo) || eating_mainpart(philo, LEFT_EAT,
+					philo->right_fork))
 				break ;
 		}
 		pthread_mutex_unlock(philo->left_fork);
