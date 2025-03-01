@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 13:28:13 by karai             #+#    #+#             */
-/*   Updated: 2025/03/01 12:25:06 by karai            ###   ########.fr       */
+/*   Updated: 2025/03/01 13:25:07 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,25 @@ bool	waiter_change_to_rl(t_common *common, int which_eat, int i)
 	return (false);
 }
 
+bool	is_only_philo(t_common *common)
+{
+	if (common->num_philo == 1)
+	{
+		common->which_eat[0] = FINISH;
+		*(common->someone_dead) = 1;
+		return (true);
+	}
+	return (false);
+}
+
 void	*waiter(void *arg)
 {
 	int			i;
 	t_common	*common;
 
 	common = (t_common *)arg;
+	if (is_only_philo(common))
+		return (NULL);
 	while (1)
 	{
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 00:49:12 by karai             #+#    #+#             */
-/*   Updated: 2025/03/01 12:18:24 by karai            ###   ########.fr       */
+/*   Updated: 2025/03/01 13:04:46 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	taken_fork(t_philosopher *philo, pthread_mutex_t *lr_fork)
 {
 	pthread_mutex_lock(lr_fork);
 	pthread_mutex_unlock(philo->mutex_which_eat);
-	print_custom("has taken a fork", philo);
 	print_custom("has taken a fork", philo);
 	pthread_mutex_lock(philo->mutex_die);
 	pthread_mutex_lock(philo->mutex_last_eat);
@@ -85,6 +84,7 @@ void	eating(t_philosopher *philo)
 	if (philo->idx % 2 == 1)
 	{
 		pthread_mutex_lock(philo->right_fork);
+		print_custom("has taken a fork", philo);
 		while (1)
 		{
 			if (is_finish_in_eating(philo))
@@ -97,6 +97,7 @@ void	eating(t_philosopher *philo)
 	else
 	{
 		pthread_mutex_lock(philo->left_fork);
+		print_custom("has taken a fork", philo);
 		while (1)
 		{
 			if (is_finish_in_eating(philo))
