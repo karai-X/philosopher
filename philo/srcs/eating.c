@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   eating.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 00:49:12 by karai             #+#    #+#             */
-/*   Updated: 2025/02/27 23:17:19 by karai            ###   ########.fr       */
+/*   Updated: 2025/03/01 12:18:24 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philosopher.h"
 
-bool	is_finish_in_eating(t_philosopher *philo, pthread_mutex_t *rl_fork)
+bool	is_finish_in_eating(t_philosopher *philo)
 {
 	pthread_mutex_lock(philo->mutex_which_eat);
 	if (*(philo->which_eat) == FINISH)
 	{
 		pthread_mutex_unlock(philo->mutex_which_eat);
-		pthread_mutex_unlock(rl_fork);
 		return (true);
 	}
 	return (false);
@@ -88,7 +87,7 @@ void	eating(t_philosopher *philo)
 		pthread_mutex_lock(philo->right_fork);
 		while (1)
 		{
-			if (is_finish_in_eating(philo, philo->right_fork))
+			if (is_finish_in_eating(philo))
 				break ;
 			if (eating_mainpart(philo, RIGHT_EAT, philo->left_fork))
 				break ;
@@ -100,7 +99,7 @@ void	eating(t_philosopher *philo)
 		pthread_mutex_lock(philo->left_fork);
 		while (1)
 		{
-			if (is_finish_in_eating(philo, philo->left_fork))
+			if (is_finish_in_eating(philo))
 				break ;
 			if (eating_mainpart(philo, LEFT_EAT, philo->right_fork))
 				break ;

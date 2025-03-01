@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: karai <karai@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: karai <karai@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 21:24:32 by karai             #+#    #+#             */
-/*   Updated: 2025/02/27 22:54:05 by karai            ###   ########.fr       */
+/*   Updated: 2025/03/01 12:17:59 by karai            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,7 @@ void				print_custom_time(char *str, t_philosopher philo,
 void				eating(t_philosopher *philo);
 
 // eating.c
-bool				is_finish_in_eating(t_philosopher *philo,
-						pthread_mutex_t *rl_fork);
+bool				is_finish_in_eating(t_philosopher *philo);
 void				taken_fork(t_philosopher *philo, pthread_mutex_t *lr_fork);
 void				eating_part(t_philosopher *philo);
 bool				eating_mainpart(t_philosopher *philo, int rl_which_eat,
